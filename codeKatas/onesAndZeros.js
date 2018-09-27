@@ -23,8 +23,12 @@ const binaryArrayToNumber3 = arr => {
 };
 
 const binaryArrayToNumber4 = arr => {
-  const reducer = (acc,cur,inx) => (acc + cur * (2**(arr.length-1-inx)));
+  const reducer = (acc,cur,inx) => {
+    return acc + cur * (2**(arr.length-1-inx))
+  };
   return arr.reduce(reducer,0);
+  //return arr.reduce( (acc,cur,inx) => {acc + cur * (2**(arr.length-1-inx))} , 0 );
+
 };
 
 
@@ -52,11 +56,39 @@ const binaryArrayToNumber7 = arr => {
 
 const binaryArrayToNumber8 = arr => parseInt(arr.join(''),2);
 
+const binaryArrayToNumber9 = arr => {
+  return arr.reduceRight((acc,cur,inx) => {
+     return acc + (cur * (2**(arr.length-1-inx)))
+  },0);
+};
+
+
 console.log("1: ",binaryArrayToNumber([1,1,0,1]));
 console.log("2: ",binaryArrayToNumber2([1,1,0,1]));
 console.log("3: ",binaryArrayToNumber3([1,1,0,1]));
 console.log("4: ",binaryArrayToNumber4([1,1,0,1]));
 console.log("5: ",binaryArrayToNumber5([1,1,0,1]));
 console.log("6: ",binaryArrayToNumber6([1,1,0,1]));
-console.log("7: ",binaryArrayToNumber6([1,1,0,1]));
-console.log("8: ",binaryArrayToNumber6([1,1,0,1]));
+console.log("7: ",binaryArrayToNumber7([1,1,0,1]));
+console.log("8: ",binaryArrayToNumber8([1,1,0,1]));
+console.log("9: ",binaryArrayToNumber9([1,1,0,1]));
+
+
+var elements = [
+  'Hydrogen',
+  'Helium',
+  'Lithium',
+  'Beryllium'
+];
+
+elements.map(function(element ) { 
+  return element.length; 
+}); // [8, 6, 7, 9]
+
+elements.map(element => {
+  return element.length;
+}); // [8, 6, 7, 9]
+
+elements.map(element => element.length); // [8, 6, 7, 9]
+
+elements.map(({ length }) => length); // [8, 6, 7, 9]
