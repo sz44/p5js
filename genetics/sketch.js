@@ -10,14 +10,14 @@
 ////3b: crossover dna (first half of 1 + second half of 2)
 ////3c: mutation
 //repeat from 2
-let phrase = "To be.";
+let phrase = "To be or not to be.";
 phrase = phrase.split("");
-let n = 100;
+let n = 200;
 let pop = [];
 let gen = 0;
 
 function setup() {
-  createCanvas(800,800);
+  createCanvas(1000,800);
   //generate 100 random text of length 20
   for(let i=0;i<n;i++) {
     let member = ranTextAr(phrase.length);
@@ -26,7 +26,8 @@ function setup() {
 }
   
 function draw() {
-  background(255);
+  background(200);
+  textSize(16);
   //selection/ evaluate fitness.
   //reproduction, pick 2, create children, add mutation, add child to pop.
   //create new generation
@@ -36,13 +37,12 @@ function draw() {
     if(x[0] === phrase.length) {
       noLoop();
       console.log(x);
-      text(x, 600, 220);
-      text(pop.indexOf(x), 600, 240);
+      text(x, 500, 220);
+      text(pop.indexOf(x), 500, 240);
     }
   });
   sSort(pop);
   //draw the pop
-  textSize(16);
   let xC = 0;
   let yC = 15;
   /*
@@ -56,7 +56,7 @@ function draw() {
   for(let j=0;j<40;j++) {
     //let p = pop[j].join('');
     text(pop[j], xC, yC);
-    text(pop.indexOf(pop[j]), xC+200, yC);
+    text(pop.indexOf(pop[j]), xC+300, yC);
     yC+=20;
   }
  
@@ -69,6 +69,7 @@ function draw() {
   //method 2: start from 1 and n-1 
   //selection sort
   //check fitness levels
+  /*
   for(let i=0;i<pop.length;i++) {
     let score = pop[i][0];
     if(score >= 18) {
@@ -76,7 +77,7 @@ function draw() {
       console.log(gen);
     }
   }
-  
+ */ 
   let probArr = makeProbArr(pop);
   let newPop = [];
   //make n new children
@@ -137,17 +138,16 @@ function createChild(arr) {
   let secondHalf = p2.slice(midpointP2+1, p2.length);
   let newChild = firstHalf.concat(secondHalf);
   //add mutation
-  let chance = floor(random(100)) === 0;
+  let chance = floor(random(100)) <= 10;
   if(chance) { 
     let code = floor(random(32, 126));
     let letter = char(code);
     //mutate only incomplete letter
     let index = floor(random(newChild.length));
-    /*
-      while(arr[index] === phrase[index]) {
-      index = arr.indexOf(random(newChild));
+    while(newChild[index] === phrase[index]) {
+      index = floor(random(newChild.length));
     }
-    */
+    
     newChild.splice(index,1,letter);
   }
   //return the new child
